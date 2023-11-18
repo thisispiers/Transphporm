@@ -14,28 +14,30 @@ class Date {
 	}
 
 	/** Converts $val into a \DateTime object if it's not already */
-	private function getDate($val) {
-		$tz = new \DateTimeZone($this->locale['timezone']);
+	private function getDate($val, $timezone = null) {
+		if ($timezone) {$tz = new \DateTimeZone($this->locale['timezone']);}
+		else {$tz = new \DateTimeZone($this->locale['timezone']);}
 		$date =  $val instanceof \DateTimeInterface ? $val : new \DateTime((string)$val, $tz);
 		$date->setTimeZone($tz);
 		return $date;
 	}
 
 	/** Formats date based on supplied $format or default format from $locale */
-	public function date($val, $format = null) {
+	public function date($val, $format = null, $timezone = null) {
 		$format = $format ? $format : $this->locale['date_format'];
-		return $this->getDate($val)->format($format);
+		return $this->getDate($val, $timezone)->format($format);
 	}
 
 	/** Formats \DateTime as time based on supplied $format or default format from $locale */
-	public function time($val, $format = null) {
+	public function time($val, $format = null, $timezone = null) {
 		$format = $format ? $format : $this->locale['time_format'];
-		return $this->getDate($val)->format($format);
+		return $this->getDate($val, $timezone)->format($format);
 	}
 
 	/** Formats \DateTime as Date and Time using formats from $locale */
-	public function dateTime($val) {
-		return $this->date($val, $this->locale['date_format'] . ' ' . $this->locale['time_format']);
+	public function dateTime($val, $format = null, $timezone = null) {
+		if (!$format) {$format = $this->locale['date_format'] . ' ' . $this->locale['time_format'];}
+		return $this->date($val, $format, $timezone);
 	}
 
 	/** Generates relative time offsets based on system clock. e.g "10 minutes ago" or "In 6 months"
