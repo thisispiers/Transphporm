@@ -15,7 +15,7 @@ class Date {
 
 	/** Converts $val into a \DateTime object if it's not already */
 	private function getDate($val, $timezone = null) {
-		if ($timezone) {$tz = new \DateTimeZone($this->locale['timezone']);}
+		if ($timezone) {$tz = new \DateTimeZone($timezone);}
 		else {$tz = new \DateTimeZone($this->locale['timezone']);}
 		$date =  $val instanceof \DateTimeInterface ? $val : new \DateTime((string)$val, $tz);
 		$date->setTimeZone($tz);
