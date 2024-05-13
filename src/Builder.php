@@ -59,7 +59,9 @@ class Builder {
 		$headers = [];
 
 		$tssCache = $this->getSheetLoader();
-		$this->cacheKey = $tssCache->getCacheKey($data);
+		if (!$this->cacheKey) {
+			$this->cacheKey = $tssCache->getCacheKey($data);
+		}
 		$result = $this->loadTemplate();
 		//If an update is required, run any rules that need to be run. Otherwise, return the result from cache
 		//without creating any further objects, loading a DomDocument, etc
@@ -72,7 +74,9 @@ class Builder {
 			   'headers' => array_merge($result['headers'], $headers),
 			   'body' => $this->doPostProcessing($template)->output($document)
 			];
-			$this->cache->write($tssCache->getCacheKey($data) . $this->template, $result);
+			if ($this->cacheKey) {
+				$this->cache->write($this->cacheKey . $this->template, $result);
+			}
 		}
 		unset($result['cache'], $result['renderTime']);
 		return (object) $result;
@@ -112,6 +116,10 @@ class Builder {
 
 	public function setCache(\ArrayAccess $cache) {
 		$this->cache = new Cache($cache);
+	}
+
+	public function setCacheKey($cacheKey) {
+		$this->cacheKey = $cacheKey;
 	}
 
 	private function isValidDoc($xml) {
