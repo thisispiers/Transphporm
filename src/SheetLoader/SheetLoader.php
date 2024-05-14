@@ -7,6 +7,7 @@
 namespace Transphporm\SheetLoader;
 //Separates out TSS file loading/caching from parsing
 class SheetLoader {
+	private $cache;
     private $tss;
     private $filePath;
     private $time;

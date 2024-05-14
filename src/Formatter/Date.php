@@ -48,7 +48,7 @@ class Date {
 
 		// round microseconds to nearest second
 		$secondsToAdd = round($now->diff($date)->f, 0);
-		$date->add(new \DateInterval("PT${secondsToAdd}S"));
+		$date->add(new \DateInterval("PT{$secondsToAdd}S"));
 
 		$diff = $now->diff($date);
 		$diffDays = $diff->invert === 1 ? $diff->days : 0- $diff->days;
