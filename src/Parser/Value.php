@@ -37,7 +37,8 @@ class Value {
 			Tokenizer::OPEN_BRACKET => 'processBrackets',
 			Tokenizer::GREATER_THAN => 'processComparator',
 			Tokenizer::LOWER_THAN => 'processComparator',
-			Tokenizer::IN => 'processComparator'
+			Tokenizer::IN => 'processComparator',
+			Tokenizer::CONTAINS => 'processComparator',
 		];
 
 	public function __construct($data, $autoLookup = false, $allowNullResult = false) {

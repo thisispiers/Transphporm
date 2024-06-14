@@ -29,7 +29,8 @@ class ValueResult {
 			Tokenizer::DIVIDE => 'div',
 			Tokenizer::GREATER_THAN => 'greater',
 			Tokenizer::LOWER_THAN => 'lower',
-			Tokenizer::IN => 'in'
+			Tokenizer::IN => 'in',
+			Tokenizer::CONTAINS => 'contains',
 		];
 
 		if ($funcs[$this->mode] === 'concat' && is_numeric($newValue)
@@ -82,6 +83,11 @@ class ValueResult {
 
 	public function div($value) {
 		$this->result[count($this->result)-1] /= $value;
+	}
+
+	public function contains($value) {
+		$r = count($this->result) - 1;
+		$this->result[$r] = strpos($this->result[$r], $value) !== false;
 	}
 
 	public function setMode($mode) {

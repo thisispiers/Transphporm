@@ -36,6 +36,7 @@ class Tokenizer {
 	const SUBTRACT = 'SUBTRACT';
 	const MULTIPLY = 'MULTIPLY';
 	const DIVIDE = 'DIVIDE';
+	const CONTAINS = 'CONTAINS';
 
 	public function __construct($str) {
 		$this->str = new Tokenizer\TokenizedString($str);
